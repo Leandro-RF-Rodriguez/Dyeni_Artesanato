@@ -1,0 +1,587 @@
+/* ================================================================
+   DYENI ARTESANATO — FOLHA DE ESTILOS
+   ================================================================
+   Índice rápido (use Ctrl+F / Cmd+F para pular direto à seção):
+
+   1.  TOKENS DE DESIGN (cores, variáveis globais)
+   2.  RESET E BASE (regras que valem para o site inteiro)
+   3.  COMPONENTES REUTILIZÁVEIS (botões, eyebrow, wrapper, divisor)
+   4.  CABEÇALHO / MENU (nav fixo + menu mobile)
+   5.  HERO (seção de abertura da Home)
+   6.  SEÇÕES GENÉRICAS DA HOME (título de seção, categorias, cards)
+   7.  SEÇÃO "DESTAQUES" (fundo escuro)
+   8.  SEÇÃO "COMO FUNCIONA" (processo em etapas)
+   9.  FAIXA DE CTA (chamada para orçamento exclusivo)
+   10. RODAPÉ
+   11. CABEÇALHO DE PÁGINA INTERNA (Catálogo / Contato)
+   12. PÁGINA DE CATÁLOGO (filtros, ordenação, grade)
+   13. PÁGINA DE PRODUTO (galeria, cores, especificações)
+   14. PÁGINA DE CONTATO (formulário + canais de atendimento)
+   15. ESTADOS VAZIOS E ACESSIBILIDADE
+   ================================================================ */
+
+
+/* ----------------------------------------------------------------
+   1. TOKENS DE DESIGN
+   Todas as cores do site partem daqui. Se quiser trocar a paleta
+   (ex: de "creme + dourado" para outra combinação), basta editar
+   os valores abaixo — o resto do site se atualiza sozinho.
+---------------------------------------------------------------- */
+:root{
+  --cream:       #FAF7EE; /* fundo principal da página */
+  --cream-deep:  #F1E7CF; /* fundo de seções alternadas / cards */
+  --ink:         #2B2116; /* cor do texto principal (quase preto) */
+  --ink-soft:    #4A3D2C; /* texto secundário, um pouco mais claro */
+  --gold:        #B8892E; /* dourado base (pouco usado direto) */
+  --gold-soft:   #DDBD7C; /* dourado claro, para detalhes discretos */
+  --gold-dark:   #8C6821; /* dourado escuro — cor de destaque/CTA */
+  --taupe:       #7A6C58; /* cinza-amarronzado para textos de apoio */
+  --line:        #E6D9BA; /* cor padrão de bordas e divisórias */
+  --white:       #FFFFFF;
+}
+
+
+/* ----------------------------------------------------------------
+   2. RESET E BASE
+   Normaliza o comportamento padrão do navegador e define a
+   tipografia e cores base usadas em toda a página.
+---------------------------------------------------------------- */
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  scroll-behavior: smooth; /* rolagem suave ao clicar em links internos */
+}
+
+body{
+  font-family: 'Work Sans', sans-serif; /* fonte de texto corrido */
+  background: var(--cream);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+}
+
+img{
+  display: block;
+  max-width: 100%;
+}
+
+button{
+  font-family: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+a{
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Classe utilitária: aplica a fonte serifada usada em títulos */
+.font-display{
+  font-family: 'Fraunces', serif;
+}
+
+::selection{
+  background: var(--gold-soft);
+  color: var(--ink);
+}
+
+/* Contorno visível ao navegar pelo teclado (acessibilidade) */
+:focus-visible{
+  outline: 2px solid var(--gold-dark);
+  outline-offset: 2px;
+}
+
+
+/* ----------------------------------------------------------------
+   3. COMPONENTES REUTILIZÁVEIS
+   Peças pequenas usadas em várias partes do site.
+---------------------------------------------------------------- */
+
+/* "Etiqueta" pequena em maiúsculas, usada acima de títulos
+   (ex.: "CROCHÊ ARTESANAL SOB ENCOMENDA" no hero) */
+.eyebrow{
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  font-weight: 600;
+}
+
+/* Container central que limita a largura do conteúdo em telas grandes */
+.wrap{
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Botão base — as variações (.btn-gold, .btn-outline...) mudam só a cor */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 15px 30px;
+  transition: .25s ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.btn-gold{ background: var(--gold-dark); color: var(--cream); }
+.btn-gold:hover{ background: #6E5019; }
+.btn-outline{ border-color: var(--ink); color: var(--ink); }
+.btn-outline:hover{ border-color: var(--gold-dark); color: var(--gold-dark); }
+.btn-outline-light{ border-color: rgba(250,247,238,.5); color: var(--cream); }
+.btn-outline-light:hover{ border-color: var(--cream); }
+.btn-block{ width: 100%; } /* botão ocupa 100% da largura do pai */
+.btn svg{ width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+/* Divisor decorativo em forma de "linha de crochê" (elemento assinatura
+   do design). É usado entre o hero e a seção de categorias na Home. */
+.thread{
+  width: 100%;
+  height: 22px;
+  overflow: hidden;
+  opacity: .8;
+}
+.thread svg{ width: 100%; height: 100%; display: block; }
+
+
+/* ----------------------------------------------------------------
+   4. CABEÇALHO / MENU
+   Nav fixo no topo (some por baixo do conteúdo ao rolar) +
+   versão do menu para telas pequenas (abre/fecha por clique).
+---------------------------------------------------------------- */
+header.site-nav{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(250,247,238,.92);
+  backdrop-filter: blur(6px); /* efeito de "vidro fosco" atrás do menu */
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.brand{
+  font-family: 'Fraunces', serif;
+  font-size: 21px;
+  letter-spacing: .01em;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand em{ color: var(--gold-dark); font-style: italic; }
+
+.nav-links{ display: flex; align-items: center; gap: 34px; }
+.nav-link{
+  font-size: 11.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-soft);
+  padding-bottom: 4px;
+  border-bottom: 1.5px solid transparent;
+  transition: .2s;
+}
+.nav-link.active, .nav-link:hover{ color: var(--gold-dark); border-color: var(--gold-dark); }
+.nav-cta{ margin-left: 6px; }
+
+/* Botão "hambúrguer" — só aparece em telas pequenas (ver media query) */
+.nav-toggle{ display: none; }
+.mobile-menu{ display: none; }
+
+@media (max-width: 860px){
+  /* Esconde o menu horizontal e mostra o botão hambúrguer */
+  .nav-links > .nav-link, .nav-links > .nav-cta{ display: none; }
+  .nav-toggle{ display: flex; flex-direction: column; gap: 5px; padding: 8px; }
+  .nav-toggle span{ width: 20px; height: 1.5px; background: var(--ink); display: block; transition: .2s; }
+  /* Menu suspenso, aberto via classe .open (controlada pelo JS) */
+  .mobile-menu.open{ display: flex; flex-direction: column; gap: 4px; padding: 8px 24px 22px; border-top: 1px solid var(--line); background: var(--cream); }
+  .mobile-menu a{ padding: 12px 0; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; border-bottom: 1px solid var(--line); }
+}
+
+/* Compensa a altura do header fixo para o conteúdo não ficar escondido atrás dele */
+main{ padding-top: 72px; }
+
+
+/* ----------------------------------------------------------------
+   5. HERO
+   Seção de abertura da Home: título grande + motivo decorativo
+   (círculos concêntricos lembrando um "carretel"/doily de crochê).
+---------------------------------------------------------------- */
+.hero{
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(ellipse at 78% 20%, var(--cream-deep), var(--cream) 60%);
+  overflow: hidden;
+}
+
+/* Círculo decorativo grande, posicionado à direita do hero */
+.hero-motif{
+  position: absolute;
+  right: -8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 640px;
+  height: 640px;
+  opacity: .55;
+}
+.hero-motif svg{ width: 100%; height: 100%; }
+
+.hero-inner{ position: relative; z-index: 2; padding: 120px 0 90px; }
+
+.hero h1{
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: clamp(40px, 7vw, 84px); /* título responsivo: cresce/encolhe com a tela */
+  line-height: 1.02;
+  color: var(--ink);
+  max-width: 760px;
+  margin-bottom: 26px;
+}
+.hero h1 i{ color: var(--gold-dark); font-style: italic; font-weight: 400; }
+
+.hero p.lead{
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 440px;
+  line-height: 1.65;
+  margin-bottom: 38px;
+  font-weight: 300;
+}
+
+.hero-ctas{ display: flex; gap: 14px; flex-wrap: wrap; }
+
+
+/* ----------------------------------------------------------------
+   6. SEÇÕES GENÉRICAS DA HOME
+   Cabeçalho de seção ("Nossas categorias", "Peças em evidência"...),
+   grade de categorias e cartão de produto — reaproveitado também
+   no Catálogo e nas "Peças relacionadas" da página de Produto.
+---------------------------------------------------------------- */
+section{ padding: 96px 0; }
+
+.section-head{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.section-head h2{ font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.6vw, 42px); }
+.see-all{
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600;
+  color: var(--gold-dark); border-bottom: 1px solid var(--gold-dark); padding-bottom: 3px;
+}
+
+/* --- Grade de categorias (4 blocos: Decoração, Linha Infantil...) --- */
+.cat-grid{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 760px){ .cat-grid{ grid-template-columns: repeat(2, 1fr); } }
+
+.cat-tile{
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 2px;
+  overflow: hidden;
+  text-align: left;
+  background: linear-gradient(160deg, var(--cream-deep), #E7D8AE 120%);
+  border: 1px solid var(--line);
+}
+.cat-tile .icon-wrap{
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: .9; transition: .4s;
+}
+.cat-tile:hover .icon-wrap{ transform: scale(1.06); } /* leve zoom no hover */
+.cat-tile .icon-wrap svg{ width: 46%; height: 46%; }
+.cat-tile .cat-label{
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 18px;
+  background: linear-gradient(0deg, rgba(43,33,22,.72), transparent 85%);
+}
+.cat-tile .cat-label p.name{ font-family: 'Fraunces', serif; font-size: 19px; color: var(--cream); }
+.cat-tile .cat-label p.desc{ font-size: 11px; color: var(--gold-soft); margin-top: 2px; }
+
+/* --- Cartão de produto (usado na Home, Catálogo e "relacionados") --- */
+.card-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+@media (max-width: 900px){ .card-grid{ grid-template-columns: repeat(2, 1fr); gap: 16px; } }
+@media (max-width: 480px){ .card-grid{ grid-template-columns: 1fr; } } /* 1 coluna no celular */
+
+.p-card{ text-align: left; display: block; }
+
+.p-media{
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  background: radial-gradient(circle at 40% 30%, var(--cream-deep), #E9DAB1 130%);
+  border: 1px solid var(--line);
+}
+.p-media img{ width: 100%; height: 100%; object-fit: cover; transition: .6s ease; }
+.p-media .icon-wrap{ position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.p-media .icon-wrap svg{ width: 42%; height: 42%; transition: .5s ease; }
+.p-card:hover .icon-wrap svg{ transform: scale(1.07) rotate(-2deg); } /* ícone "acorda" no hover */
+.p-card:hover .p-media img{ transform: scale(1.06); } /* zoom na foto no hover */
+
+.p-badge{
+  position: absolute; top: 12px; left: 12px;
+  background: var(--gold-dark); color: var(--cream);
+  font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; padding: 4px 9px;
+}
+.p-badge.popular{ background: var(--cream); color: var(--ink); left: auto; right: 12px; }
+
+.p-ref{ font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 4px; font-weight: 600; }
+.p-name{ font-family: 'Fraunces', serif; font-size: 19px; color: var(--ink); line-height: 1.2; margin-bottom: 4px; }
+.p-sub{ font-size: 12.5px; color: var(--taupe); }
+
+
+/* ----------------------------------------------------------------
+   7. SEÇÃO "DESTAQUES" (fundo escuro)
+   Reaproveita as classes de card acima, só ajusta as cores para
+   funcionarem sobre fundo escuro.
+---------------------------------------------------------------- */
+.dark-section{ background: var(--ink); color: var(--cream); }
+.dark-section .eyebrow{ color: var(--gold-soft); }
+.dark-section .section-head h2{ color: var(--cream); }
+.dark-section .p-name{ color: var(--cream); }
+.dark-section .p-sub{ color: #A8988A; }
+.dark-section .p-media{ background: radial-gradient(circle at 40% 30%, #392C1E, #241a10 130%); border-color: #3A2E1E; }
+.dark-section .more-link{ margin-top: 14px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-soft); display: flex; align-items: center; gap: 8px; }
+
+
+/* ----------------------------------------------------------------
+   8. SEÇÃO "COMO FUNCIONA" (processo em 4 etapas)
+   Duas colunas: texto + botão à esquerda, lista numerada à direita.
+---------------------------------------------------------------- */
+.process-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+@media (max-width: 860px){ .process-grid{ grid-template-columns: 1fr; gap: 36px; } }
+
+.process-head h2{ font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(30px, 4.4vw, 50px); line-height: 1.1; margin: 14px 0 22px; }
+.process-head p{ color: var(--ink-soft); line-height: 1.7; margin-bottom: 30px; max-width: 440px; font-weight: 300; }
+
+.steps{ border-top: 1px solid var(--line); }
+.step{ display: flex; gap: 22px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.step .n{ font-family: 'Fraunces', serif; font-style: italic; font-size: 26px; color: var(--gold-soft); width: 38px; flex-shrink: 0; }
+.step h4{ font-size: 15px; margin-bottom: 4px; font-weight: 600; }
+.step p{ font-size: 13.5px; color: var(--taupe); line-height: 1.55; }
+
+
+/* ----------------------------------------------------------------
+   9. FAIXA DE CTA
+   Bloco dourado de largura total, chamando para orçamento exclusivo.
+---------------------------------------------------------------- */
+.cta-strip{ background: linear-gradient(135deg, var(--gold-dark), #A87526); text-align: center; }
+.cta-strip h2{ font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(26px, 4vw, 40px); color: var(--cream); margin-bottom: 14px; }
+.cta-strip p{ color: #F3E4C6; max-width: 520px; margin: 0 auto 30px; line-height: 1.6; }
+
+
+/* ----------------------------------------------------------------
+   10. RODAPÉ
+   Presente em todas as páginas (Home, Catálogo, Produto, Contato).
+---------------------------------------------------------------- */
+footer{ background: var(--ink); color: #A8988A; padding: 70px 0 30px; }
+
+.footer-grid{
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid #3A2E1E;
+  margin-bottom: 26px;
+}
+@media (max-width: 760px){ .footer-grid{ grid-template-columns: 1fr; } }
+
+.footer-grid .brand{ color: var(--cream); margin-bottom: 12px; }
+.footer-grid p{ font-size: 13.5px; line-height: 1.6; }
+.footer-col p.heading{ color: var(--gold-soft); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 14px; }
+.footer-col a, .footer-col p.line{ display: block; font-size: 13.5px; margin-bottom: 8px; color: #A8988A; }
+.footer-col a:hover{ color: var(--gold-soft); }
+.copyright{ text-align: center; font-size: 11px; color: #5A4C38; }
+
+
+/* ----------------------------------------------------------------
+   11. CABEÇALHO DE PÁGINA INTERNA
+   Faixa com "eyebrow + título" usada no topo do Catálogo e Contato.
+---------------------------------------------------------------- */
+.page-head{ background: var(--cream-deep); border-bottom: 1px solid var(--line); padding: 64px 0; }
+.page-head h1{ font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(32px, 5vw, 52px); }
+
+
+/* ----------------------------------------------------------------
+   12. PÁGINA DE CATÁLOGO
+   Barra de ferramentas (contagem + ordenação), filtros laterais
+   (categoria/material/técnica) e a grade de produtos.
+---------------------------------------------------------------- */
+.cat-toolbar{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 26px 0; border-bottom: 1px solid var(--line); margin-bottom: 34px;
+  flex-wrap: wrap; gap: 14px;
+}
+.cat-count{ font-size: 13.5px; color: var(--taupe); }
+.cat-count b{ color: var(--ink); }
+.sort-select{ font-size: 13px; border: 1px solid var(--line); background: transparent; padding: 8px 12px; color: var(--ink); }
+
+/* Botão "Filtros", só visível no mobile (abre o painel de filtros) */
+.filter-toggle{ display: none; align-items: center; gap: 8px; border: 1px solid var(--line); padding: 8px 14px; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; }
+@media (max-width: 860px){ .filter-toggle{ display: inline-flex; } }
+
+.catalog-layout{ display: flex; gap: 48px; align-items: flex-start; }
+
+/* Filtros da versão DESKTOP: barra lateral sempre visível acima de 860px */
+.filters-desktop{ width: 220px; flex-shrink: 0; }
+
+/* Filtros da versão MOBILE: escondidos por padrão, abrem por clique
+   (classe .open é adicionada/removida pelo JS) */
+.filters-mobile{ display: none; }
+
+@media (max-width: 860px){
+  .filters-desktop{ display: none; } /* esconde a barra lateral no mobile */
+  .filters-mobile.open{ display: block; width: 100%; margin-bottom: 30px; background: var(--cream-deep); padding: 22px; }
+}
+
+.filter-group{ margin-bottom: 32px; }
+.filter-group p.f-label{ font-size: 11px; letter-spacing: .15em; text-transform: uppercase; font-weight: 600; margin-bottom: 12px; }
+.filter-opt{ display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--taupe); padding: 5px 0; width: 100%; text-align: left; }
+.filter-opt .box{ width: 13px; height: 13px; border: 1px solid var(--line); flex-shrink: 0; }
+.filter-opt.active{ color: var(--gold-dark); font-weight: 600; }
+.filter-opt.active .box{ background: var(--gold-dark); border-color: var(--gold-dark); }
+
+.cat-content{ flex: 1; min-width: 0; }
+
+
+/* ----------------------------------------------------------------
+   13. PÁGINA DE PRODUTO
+   Trilha (breadcrumb), imagem/ícone grande, seletor de cor,
+   tabela de especificações, instruções de cuidado e guia de medidas.
+---------------------------------------------------------------- */
+.crumb{ font-size: 12px; color: var(--taupe); padding: 22px 0; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.crumb a:hover{ color: var(--gold-dark); }
+.crumb .cur{ color: var(--ink); } /* página atual, sem link */
+
+.product-layout{ display: grid; grid-template-columns: 1fr 440px; gap: 60px; align-items: start; padding-bottom: 70px; }
+@media (max-width: 960px){ .product-layout{ grid-template-columns: 1fr; gap: 36px; } }
+
+.product-media{
+  position: relative; aspect-ratio: 4 / 5; border-radius: 2px; overflow: hidden;
+  background: radial-gradient(circle at 42% 32%, var(--cream-deep), #E9DAB1 140%);
+  border: 1px solid var(--line);
+}
+.product-media img{ width: 100%; height: 100%; object-fit: cover; }
+.product-media .icon-wrap{ position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.product-media .icon-wrap svg{ width: 42%; height: 42%; }
+
+.product-tags{ position: absolute; top: 16px; left: 16px; display: flex; flex-direction: column; gap: 8px; }
+.tag{ font-size: 10px; letter-spacing: .14em; text-transform: uppercase; padding: 5px 10px; }
+.tag.cat{ background: var(--gold-dark); color: var(--cream); }
+.tag.size{ background: var(--cream); color: var(--ink); }
+
+.p-ref-lg{ font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-dark); font-weight: 600; margin-bottom: 10px; }
+.p-title{ font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(28px, 3.4vw, 38px); line-height: 1.1; margin-bottom: 16px; }
+.p-desc{ color: var(--taupe); font-size: 14px; line-height: 1.7; margin-bottom: 30px; }
+
+/* Seletor de cor (bolinhas clicáveis) */
+.color-block{ margin-bottom: 30px; }
+.color-block p.cl{ font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; margin-bottom: 12px; }
+.color-block p.cl span{ color: var(--gold-dark); font-weight: 600; text-transform: none; letter-spacing: 0; font-size: 13px; }
+.swatches{ display: flex; flex-wrap: wrap; gap: 9px; }
+.swatch{ width: 30px; height: 30px; border-radius: 50%; border: 2px solid transparent; box-shadow: 0 0 0 1px var(--line); transition: .2s; }
+.swatch.sel{ border-color: var(--gold-dark); transform: scale(1.12); } /* cor selecionada no momento */
+
+/* Tabela de especificações (Referência, Material, Técnica...) */
+.spec-table{ margin-top: 30px; border-top: 1px solid var(--line); }
+.spec-row{ display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--cream-deep); gap: 10px; }
+.spec-row .k{ font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--taupe); flex-shrink: 0; }
+.spec-row .v{ font-size: 13.5px; font-weight: 600; text-align: right; }
+
+/* Lista de instruções de lavagem/cuidado */
+.care{ margin-top: 26px; }
+.care p.title{ font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+.care li{ list-style: none; display: flex; gap: 9px; font-size: 13.5px; color: var(--taupe); padding: 3px 0; }
+.care li:before{ content: "◆"; color: var(--gold-dark); font-size: 9px; margin-top: 5px; }
+
+/* Caixa de aviso sobre medidas, exibida só quando o produto aceita tamanho sob medida */
+.size-guide{ margin-top: 24px; background: var(--cream-deep); padding: 16px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+.size-guide p.title{ font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
+
+/* Bloco de "peças relacionadas" no fim da página de produto */
+.related-wrap{ padding-top: 50px; border-top: 1px solid var(--line); }
+.related-wrap h2{ font-family: 'Fraunces', serif; font-size: 26px; margin-bottom: 30px; }
+
+
+/* ----------------------------------------------------------------
+   14. PÁGINA DE CONTATO
+   Formulário (esquerda) + canais de atendimento, envio e
+   pagamento (direita).
+---------------------------------------------------------------- */
+.contact-layout{ display: grid; grid-template-columns: 1fr 380px; gap: 70px; align-items: start; }
+@media (max-width: 900px){ .contact-layout{ grid-template-columns: 1fr; gap: 44px; } }
+.contact-layout h2{ font-family: 'Fraunces', serif; font-size: 26px; margin-bottom: 8px; }
+.contact-layout > div:first-child > p{ color: var(--taupe); font-size: 13.5px; margin-bottom: 30px; line-height: 1.6; }
+
+/* Campos do formulário */
+.form-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+@media (max-width: 520px){ .form-row{ grid-template-columns: 1fr; } }
+.field{ margin-bottom: 16px; }
+.field label{ display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--taupe); margin-bottom: 6px; }
+.field input, .field select, .field textarea{
+  width: 100%; border: 1px solid var(--line); background: transparent;
+  padding: 12px 14px; font-size: 13.5px; color: var(--ink); font-family: inherit;
+}
+.field input:focus, .field select:focus, .field textarea:focus{ outline: none; border-color: var(--gold-dark); }
+.field textarea{ resize: vertical; }
+
+/* Tela de confirmação exibida após o envio do formulário */
+.sent-box{ background: var(--cream-deep); text-align: center; padding: 50px 26px; }
+.sent-box .emoji{ font-size: 30px; margin-bottom: 14px; }
+.sent-box h3{ font-family: 'Fraunces', serif; font-size: 24px; margin-bottom: 8px; }
+.sent-box p{ font-size: 13.5px; color: var(--taupe); margin-bottom: 18px; }
+.sent-box button{ font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-dark); border-bottom: 1px solid var(--gold-dark); padding-bottom: 3px; }
+
+/* Cada "canal de atendimento" (WhatsApp / Instagram) */
+.channel{ display: flex; gap: 14px; align-items: flex-start; border: 1px solid var(--line); padding: 16px; margin-bottom: 12px; transition: .2s; }
+.channel:hover{ border-color: var(--gold-dark); }
+.channel svg{ width: 19px; height: 19px; flex-shrink: 0; margin-top: 2px; }
+/* Ícone "preenchido" (ex.: WhatsApp) vs ícone "só contorno" (ex.: Instagram) */
+.channel svg.ico-fill{ fill: var(--gold-dark); }
+.channel svg.ico-stroke{ fill: none; stroke: var(--gold-dark); }
+.channel .lab{ font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--taupe); margin-bottom: 3px; }
+.channel .val{ font-size: 13.5px; font-weight: 600; }
+.channel .sub{ font-size: 12px; color: var(--taupe); margin-top: 2px; }
+
+/* Caixa "Envio & entrega" */
+.info-box{ background: var(--cream-deep); padding: 22px; margin-bottom: 26px; }
+.info-box h3{ font-family: 'Fraunces', serif; font-size: 19px; margin-bottom: 16px; }
+.ship-row{ display: flex; gap: 9px; align-items: flex-start; margin-bottom: 11px; font-size: 13.5px; }
+.ship-row .dot{ color: var(--gold-dark); font-size: 9px; margin-top: 6px; }
+.ship-row b{ font-weight: 600; }
+.ship-row span.d{ color: var(--taupe); }
+
+/* "Chips" de formas de pagamento (Pix, Transferência...) */
+.pay-chip{ border: 1px solid var(--line); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--taupe); padding: 6px 12px; margin: 0 6px 6px 0; display: inline-block; }
+
+
+/* ----------------------------------------------------------------
+   15. ESTADOS VAZIOS
+   Mensagem exibida no Catálogo quando nenhum filtro retorna resultado.
+---------------------------------------------------------------- */
+.empty-state{ padding: 80px 0; text-align: center; }
+.empty-state h3{ font-family: 'Fraunces', serif; font-size: 24px; margin-bottom: 8px; }
+.empty-state p{ color: var(--taupe); font-size: 13.5px; }
