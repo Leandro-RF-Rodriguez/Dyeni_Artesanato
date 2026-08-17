@@ -493,7 +493,7 @@ function renderFooter(){
         </div>
         <div class="footer-col">
           <p class="heading">Contato</p>
-          <p class="line">WhatsApp: (11) 9 9999-9999</p>
+          <p class="line">WhatsApp: +55 51 9221-1145</p>
           <a href="https://www.instagram.com/dyenisilva_artesanato/" target="_blank" rel="noopener">${IG_HANDLE}</a>
           <p class="line">Brasil — envio nacional</p>
         </div>
