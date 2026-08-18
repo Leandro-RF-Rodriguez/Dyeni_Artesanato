@@ -270,7 +270,7 @@ const PRODUCTS = [
       'Secar à sombra pendurado',
     ],
     days: 4, featured: true, icon: 'keychain',
-    photo: 'assets/chaveiro.jpg', // foto real já disponível
+    photo: 'assets/chaveiro-2.jpg', // foto real já disponível
     desc: 'Sachezinho em crochê com cerejinhas penduradas e argola dourada — ideal para guardar aliança, chaves ou pendurar na bolsa. Feito em algodão fio 6, um mimo delicado e cheio de charme.',
   },
   {
