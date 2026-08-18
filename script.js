@@ -197,23 +197,23 @@ const ICONS = {
 const PRODUCTS = [
   {
     id: '1', ref: 'DY-001', name: 'Centro de Mesa',
-    category: 'Decoração', material: 'Fio de Malha', technique: 'Crochê Tradicional',
+    category: 'Decoração', material: 'Barbante 100% algodão', technique: 'Crochê Tradicional',
     colors: [
       { name: 'Malve', hex: '#867886' },
       { name: 'Marfim', hex: '#F1E7CF' },
       { name: 'Mostarda', hex: '#C99A3B' },
       { name: 'Terracota', hex: '#B5652F' },
     ],
-    customSizes: true, dimensions: 'Ø 35 cm (padrão) — sob medida disponível', weight: '160 g',
+    customSizes: true, dimensions: 'Sob medida', weight: '160 g',
     care: [
       'Lavagem à mão com água fria',
       'Sabão neutro ou de coco',
       'Não torcer — prensar suavemente',
       'Secar à sombra em superfície plana',
     ],
-    days: 7, popular: true, featured: true, icon: 'doily',
+    days: 30, popular: true, featured: true, icon: 'doily',
     photo: 'assets/centro_de_mesa.jpg', // foto real já disponível
-    desc: 'Centro de mesa circular em crochê feito à mão, com design rendado elegante. Confeccionado em uma combinação sofisticada do tom malve (#867886) com creme, traz acabamento com bico trabalhado em arcos e detalhe de tag dourada em formato de coração. Ideal para compor a decoração de mesas e apoiar vasos ou arranjos.',
+    desc: 'Centro de mesa circular em crochê feito á mão, com desing elegante. Confeccionado em fio 100% algodão. Ideal para compor a decoração de mesas, aparadores e outros ambientes deixando o espaço mais acolhedor e elegante.',
   },
   {
     id: '2', ref: 'DY-002', name: 'Herry Potter',
@@ -275,7 +275,7 @@ const PRODUCTS = [
   },
   {
     id: '5', ref: 'DY-005', name: 'Tapete Coração de Rosas',
-    category: 'Presentes', material: 'Fio de Malha', technique: 'Crochê Tradicional',
+    category: 'Presentes', material: 'Barbante 100% algodão', technique: 'Crochê Tradicional',
     colors: [
       { name: 'Vermelho + Branco', hex: '#B5652F' },
       { name: 'Rosa + Branco', hex: '#E8B6C4' },
@@ -709,16 +709,8 @@ function renderCatalog(){
    lavagem, guia de medidas (se aplicável) e peças relacionadas.
 ---------------------------------------------------------------- */
 
-// Guarda a cor selecionada em cada produto (por id), para lembrar
-// a escolha do usuário caso ele volte à mesma página de produto.
-let SELECTED_COLOR = {};
-
 function renderProduct(){
   const p = PRODUCTS.find(x => x.id === STATE.productId) || PRODUCTS[0];
-
-  // Se ainda não há cor escolhida para este produto, usa a primeira da lista
-  if(!SELECTED_COLOR[p.id]) SELECTED_COLOR[p.id] = p.colors[0];
-  const sc = SELECTED_COLOR[p.id];
 
   // Até 3 produtos da mesma categoria, para a seção "Peças relacionadas"
   const related = PRODUCTS.filter(x => x.id !== p.id && x.category === p.category).slice(0, 3);
@@ -747,18 +739,8 @@ function renderProduct(){
       <h1 class="p-title font-display">${p.name}</h1>
       <p class="p-desc">${p.desc}</p>
 
-      <!-- Seletor de cor -->
-      <div class="color-block">
-        <p class="cl">Cor selecionada: <span>${sc.name}</span></p>
-        <div class="swatches">
-          ${p.colors.map(c => `
-            <button class="swatch ${sc.name === c.name ? 'sel' : ''}" style="background:${c.hex}" title="${c.name}"
-              onclick="SELECTED_COLOR['${p.id}']=${JSON.stringify(c).replace(/"/g, '&quot;')}; render()"></button>`).join('')}
-        </div>
-      </div>
-
       <!-- Botões de ação -->
-      <a class="btn btn-gold btn-block" style="margin-bottom:10px;" href="javascript:void(0)" onclick="openWhatsApp('${p.name}','${p.ref}','${sc.name}')">${WA_SVG}Encomendar via WhatsApp</a>
+      <a class="btn btn-gold btn-block" style="margin-bottom:10px;" href="javascript:void(0)" onclick="openWhatsApp('${p.name}','${p.ref}')">${WA_SVG}Encomendar via WhatsApp</a>
       <a class="btn btn-outline btn-block" href="javascript:void(0)" onclick="navigate('contact')">Solicitar orçamento</a>
 
       <!-- Tabela de especificações técnicas -->
