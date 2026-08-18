@@ -252,10 +252,10 @@ const PRODUCTS = [
     ],
     days: 6, popular: true, featured: true, icon: 'octopus',
     photo: 'assets/polvo.jpg', // foto real já disponível
-    desc: 'Polvinho amigurumi com tentáculos coloridos e olhinhos bordados, enchimento antialérgico certificado. Uma peça fofa, segura para bebês e um mimo certeiro para presentear.',
+    desc: 'Polvinho amigurumi com tentáculos coloridos e olhinhos bordados. Uma peça fofa, segura para bebês e um mimo para presentear.',
   },
   {
-    id: '4', ref: 'DY-004', name: 'Chaveiro Cerejinha',
+    id: '4', ref: 'DY-004', name: 'Chaveiro Capivara',
     category: 'Acessórios', material: 'Algodão 100%', technique: 'Amigurumi',
     colors: [
       { name: 'Cereja Clássica', hex: '#B5652F' },
@@ -271,10 +271,10 @@ const PRODUCTS = [
     ],
     days: 4, featured: true, icon: 'keychain',
     photo: 'assets/chaveiro-2.jpg', // foto real já disponível
-    desc: 'Sachezinho em crochê com cerejinhas penduradas e argola dourada — ideal para guardar aliança, chaves ou pendurar na bolsa. Feito em algodão fio 6, um mimo delicado e cheio de charme.',
+    desc: 'Chaveiro em crochê com uma capivara fofinha e cheia de detalhes, feito à mão com todo carinho. 🧶🤎 Delicado e divertido, é perfeito para levar suas chaves, pendurar na bolsa ou usar como um mimo especial no dia a dia. Feito artesanalmente em fio de algodão, unindo charme, delicadeza e aquele toque único que só uma peça feita à mão tem.',
   },
   {
-    id: '5', ref: 'DY-005', name: 'Tapete Coração de Rosas',
+    id: '5', ref: 'DY-005', name: 'Bolsa de Crochê',
     category: 'Presentes', material: 'Barbante 100% algodão', technique: 'Crochê Tradicional',
     colors: [
       { name: 'Vermelho + Branco', hex: '#B5652F' },
@@ -289,8 +289,8 @@ const PRODUCTS = [
       'Não usar alvejante',
     ],
     days: 10, popular: true, icon: 'heartRose',
-    desc: 'Tapete em formato de coração com borda rendada e rosa em crochê aplicada ao centro. Peça romântica, perfeita para o Dia dos Namorados, Dia das Mães ou como presente afetivo e feito à mão.',
-  },
+    photo: 'assets/bolsa.jpg', // foto real já disponível
+    desc: 'Bolsa artesanal confeccionada em fio de malha premium, feita à mão com todo cuidado e carinho em cada detalhe. Leve, prática e versátil, perfeita para complementar seus looks e acompanhar você em diferentes ocasiões. Disponível em diferentes cores, conforme disponibilidade. 🤎', },
   {
     id: '6', ref: 'DY-006', name: 'Descansos Trevo (kit c/ 4)',
     category: 'Decoração', material: 'Algodão 100%', technique: 'Crochê Tradicional',
