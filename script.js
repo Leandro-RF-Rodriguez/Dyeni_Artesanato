@@ -1,5 +1,5 @@
 /* ================================================================
-   DYENI ARTESANATO — LÓGICA DO SITE
+   Dy Encantos — LÓGICA DO SITE
    ================================================================
    Este arquivo controla TUDO que acontece na página: os dados dos
    produtos, os ícones, a navegação entre "páginas" (Home, Catálogo,
@@ -37,7 +37,7 @@
 const WHATSAPP = '555192211145';
 
 const IG_HANDLE = '@dyenisilva_artesanato';
-const BRAND = 'Dyeni Artesanato';
+const BRAND = 'Dy Encantos';
 
 /**
  * Monta um link "wa.me" pronto para abrir o WhatsApp com uma
@@ -452,7 +452,7 @@ function renderNav(){
   return `
   <header class="site-nav">
     <div class="wrap nav-row">
-      <button class="brand" onclick="navigate('home')">Dyeni <em>Artesanato</em></button>
+      <button class="brand" onclick="navigate('home')">Dy <em>Encantos</em></button>
 
       <nav class="nav-links">
         ${links.map(l => `<a class="nav-link ${STATE.page === l.page ? 'active' : ''}" href="javascript:void(0)" onclick="navigate('${l.page}')">${l.label}</a>`).join('')}
@@ -484,7 +484,7 @@ function renderFooter(){
     <div class="wrap">
       <div class="footer-grid">
         <div>
-          <p class="brand font-display">Dyeni Artesanato</p>
+          <p class="brand font-display">Dy Encantos</p>
           <p>Crochê artesanal feito à mão, com carinho e atenção a cada detalhe — peças sob encomenda para decorar, presentear e encantar.</p>
         </div>
         <div class="footer-col">
@@ -500,7 +500,7 @@ function renderFooter(){
           <p class="line">Brasil — envio nacional</p>
         </div>
       </div>
-      <p class="copyright">© 2026 Dyeni Artesanato. Todos os direitos reservados.</p>
+      <p class="copyright">© 2026 Dy Encantos. Todos os direitos reservados.</p>
     </div>
   </footer>`;
 }
@@ -797,7 +797,7 @@ let CONTACT_FORM = { name: '', email: '', whatsapp: '', category: '', colors: ''
 function submitContact(e){
   e.preventDefault(); // impede o recarregamento padrão da página
   const f = CONTACT_FORM;
-  const msg = `*Nova Encomenda — Dyeni Artesanato*\n\nNome: ${f.name}\nE-mail: ${f.email}\nWhatsApp: ${f.whatsapp}\nCategoria: ${f.category}\nCores: ${f.colors}\nMedidas: ${f.sizes}\n\nDetalhes:\n${f.details}`;
+  const msg = `*Nova Encomenda — Dy Encantos*\n\nNome: ${f.name}\nE-mail: ${f.email}\nWhatsApp: ${f.whatsapp}\nCategoria: ${f.category}\nCores: ${f.colors}\nMedidas: ${f.sizes}\n\nDetalhes:\n${f.details}`;
   window.open(waLink(msg), '_blank');
   CONTACT_SENT = true;
   render();
