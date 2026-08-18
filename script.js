@@ -217,7 +217,7 @@ const PRODUCTS = [
   },
   {
     id: '2', ref: 'DY-002', name: 'Herry Potter',
-    category: 'Linha Infantil', material: 'Algodão 100%', technique: 'Crochê Tradicional',
+    category: 'Amigurumi', material: 'Algodão 100%', technique: 'Crochê Tradicional',
     colors: [
       { name: 'Creme', hex: '#F1E7CF' },
       { name: 'Caramelo', hex: '#C99A3B' },
