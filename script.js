@@ -196,10 +196,10 @@ const ICONS = {
 ---------------------------------------------------------------- */
 const PRODUCTS = [
   {
-    id: '1', ref: 'DY-001', name: 'Sousplat Girassol',
+    id: '1', ref: 'DY-001', name: 'Centro de Mesa',
     category: 'Decoração', material: 'Fio de Malha', technique: 'Crochê Tradicional',
     colors: [
-      { name: 'Sálvia', hex: '#9CA778' },
+      { name: 'Malve', hex: '#867886' },
       { name: 'Marfim', hex: '#F1E7CF' },
       { name: 'Mostarda', hex: '#C99A3B' },
       { name: 'Terracota', hex: '#B5652F' },
@@ -212,10 +212,11 @@ const PRODUCTS = [
       'Secar à sombra em superfície plana',
     ],
     days: 7, popular: true, featured: true, icon: 'doily',
-    desc: 'Sousplat redondo em fio de malha com aplicação de flor em crochê, feito ponto a ponto para compor a mesa com delicadeza. Acompanha arranjo de flor removível — perfeito como base decorativa para pratos, vasos ou centro de mesa.',
+    photo: 'assets/centro_de_mesa.jpg', // foto real já disponível
+    desc: 'Centro de mesa circular em crochê feito à mão, com design rendado elegante. Confeccionado em uma combinação sofisticada do tom malve (#867886) com creme, traz acabamento com bico trabalhado em arcos e detalhe de tag dourada em formato de coração. Ideal para compor a decoração de mesas e apoiar vasos ou arranjos.',
   },
   {
-    id: '2', ref: 'DY-002', name: 'Touca Ursinho Bebê',
+    id: '2', ref: 'DY-002', name: 'Herry Potter',
     category: 'Linha Infantil', material: 'Algodão 100%', technique: 'Crochê Tradicional',
     colors: [
       { name: 'Creme', hex: '#F1E7CF' },
@@ -231,7 +232,8 @@ const PRODUCTS = [
       'Secar à sombra',
     ],
     days: 5, popular: true, featured: true, icon: 'bearHat',
-    desc: 'Touquinha em crochê com carinha de ursinho e pompom no topo, confeccionada em algodão macio e seguro para a pele do bebê. Peça queridinha para newborn e presente de chá de bebê.',
+    photo: 'assets/harry_potter.jpg', // foto real já disponível
+    desc: 'Boneco de crochê feito à mão (amigurumi) do Harry Potter. A peça traz os detalhes marcantes do personagem, como os óculos redondos, a cicatriz de raio na testa, o cabelo marrom texturizado e o clássico cachecol nas cores vermelho e amarelo da Grifinória. Vem acompanhado de uma base de apoio branca para exibição. Ideal para decoração ou para presentear fãs da saga.',
   },
   {
     id: '3', ref: 'DY-003', name: 'Polvo Arco-Íris',
@@ -493,7 +495,7 @@ function renderFooter(){
         </div>
         <div class="footer-col">
           <p class="heading">Contato</p>
-          <p class="line">WhatsApp: +55 51 9221-1145</p>
+          <p class="line">WhatsApp: (51) 9221-1145</p>
           <a href="https://www.instagram.com/dyenisilva_artesanato/" target="_blank" rel="noopener">${IG_HANDLE}</a>
           <p class="line">Brasil — envio nacional</p>
         </div>
