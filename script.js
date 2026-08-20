@@ -281,7 +281,7 @@ const PRODUCTS = [
       { name: 'Rosa + Branco', hex: '#E8B6C4' },
       { name: 'Marfim + Dourado', hex: '#C99A3B' },
     ],
-    customSizes: true, dimensions: '32 cm × 30 cm', weight: '140 g',
+    customSizes: true, dimensions: ' 25cm de Largura por 19cm de Altura', weight: '140 g',
     care: [
       'Lavar à mão em água fria',
       'Sabão neutro',
